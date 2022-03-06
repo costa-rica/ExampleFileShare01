@@ -1,0 +1,4 @@
+app_package/static/upload/
+app_package/static/test_files/
+*.ipynb
+__pycache__/

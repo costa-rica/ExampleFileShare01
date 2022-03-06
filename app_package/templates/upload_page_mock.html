@@ -1,0 +1,158 @@
+{% extends "layout.html" %}
+{% block title %} File Share {% endblock %}
+{% block main %}
+
+
+<section class="FileManager">
+  <div class="PageDiv">
+    
+    <div class="SeachLocalDiv">
+      <h1>Upload</h1>
+
+      {% if selected_files %}
+        <form method="POST">
+          
+          <div class="FilesStagedForUpload">
+            Upload these files:
+            {% for file in selected_files %}
+              {% if file == selected_files[-1] %}
+              <u class="fileNameColor">{{ file }}</u>
+              {% else %}
+              <u class="fileNameColor">{{ file }}</u>,
+              {% endif %}
+            {% endfor %}
+          
+            <div class="UploadStaging">
+
+              <div class="ButtonDiv2">
+                <button type="button" data-bs-toggle="modal" data-bs-target="#explorerModal" class="btn btn-secondary "> Browse</button>
+                <button type="submit" name="upload" value="True" class="btn btn-info "> Upload</button>
+              </div>
+            </div>
+          </div>
+          
+        </form>
+
+        {% else %}
+
+        <div class="ButtonDiv">
+          <button type="button" data-bs-toggle="modal" data-bs-target="#explorerModal" data-bs-whatever="something passed to java" >
+            <img src="../static/images/FileExplorerButton.PNG">
+          </button>
+          <div>* This is a mock local drive to test what it would be like to upload a file.</div>
+        </div>
+
+      {% endif %}
+    </div>
+
+    {% if len(upload_file_dict)>0 %}
+    <hr/>
+    <div class="FilesDiv">
+      <h1>Files</h1>
+      <div class="FilesDivSub">
+          <form method="POST">
+              <ul>
+                  {% for i,j in upload_file_dict.items() %}
+                  <li>
+                      <div class="file_row">
+                          <a href="{{ url_for('main.download_data_page', file_name= i ) }}">{{ i }}</a> <i>{{ j }}</i>
+                          <button class="btn btn-danger button_size" name="file_to_delete" value="{{ i }}"><i class="fa fa-trash"></i> Trash</button>
+                      </div>
+                  </li>
+                  {% endfor %}
+              </ul>
+          </form>
+      </div>
+    </div>
+    {% endif %}
+  </div>
+</section>
+
+
+
+
+
+
+<form method="POST" action="" enctype="multipart/form-data">
+    
+    
+  <!-- Modal -->
+  <div class="modal" id="explorerModal">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <div class="modal-header header_custom">
+            <!-- Nav bar for folder look -->
+          <div class="breadcrumbs_path">.../Your Local Directory</div>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close">
+          </button>
+        </div>
+        <!-- files section -->
+        <div class="modal-body">
+            <div class="folder_look">
+                
+                {% for i, j in local_files_info_dict.items() %}
+                  <div class="file_item">
+                    {% if j[1]==True %}
+                      <input type="checkbox" class="custom-control-input" name="file_{{ i }}" checked/>
+                      {% else %}
+                      <input type="checkbox" class="custom-control-input" name="file_{{ i }}" />
+                    {% endif %}
+                    <span class="file_text">{{ i }}</span>
+                  </div>
+                {% endfor %}
+        </div>
+        <div class="modal-footer custom_footer">
+          <button type="submit" class="btn btn-primary" name="select_file" value="True">Select</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</form>
+
+
+<!-- 
+<script>
+
+function _(el) {
+  return document.getElementById(el);
+}
+
+function uploadFile() {
+  var file = _("file2").files[0];
+  // alert(file.name+" | "+file.size+" | "+file.type);
+  var formdata = new FormData();
+  formdata.append("file2", file);
+  var ajax = new XMLHttpRequest();
+  ajax.upload.addEventListener("progress", progressHandler, false);
+  ajax.addEventListener("load", completeHandler, false);
+  ajax.addEventListener("error", errorHandler, false);
+  ajax.addEventListener("abort", abortHandler, false);
+  ajax.open("POST", "file_upload_parser.php"); // http://www.developphp.com/video/JavaScript/File-Upload-Progress-Bar-Meter-Tutorial-Ajax-PHP
+  //use file_upload_parser.php from above url
+  ajax.send(formdata);
+}
+
+function progressHandler(event) {
+  _("loaded_n_total").innerHTML = "Uploaded " + event.loaded + " bytes of " + event.total;
+  var percent = (event.loaded / event.total) * 100;
+  _("progressBar").value = Math.round(percent);
+  _("status").innerHTML = Math.round(percent) + "% uploaded... please wait";
+}
+
+function completeHandler(event) {
+  _("status").innerHTML = event.target.responseText;
+  _("progressBar").value = 0; //wil clear progress bar after successful upload
+}
+
+function errorHandler(event) {
+  _("status").innerHTML = "Upload Failed";
+}
+
+function abortHandler(event) {
+  _("status").innerHTML = "Upload Aborted";
+}
+
+</script> -->
+
+
+{% endblock %}

@@ -1,0 +1,99 @@
+{% extends "layout.html" %}
+{% block title %} Register {% endblock %}
+{% block main %}
+<section class="EditAccess">
+        
+    <div class="pageDiv">
+
+        <h1>Edit Users</h1>
+
+        <form method="POST" action="" enctype="multipart/form-data">
+            <!-- <div class="table_container"> -->
+                <div class="table_contents table-responsive table_custom">
+                    <table id="proxies" class="table display nowrap responsive " >
+                        <thead>
+                            <tr>
+                                <th>User ID</th>
+                                <th>Email</th>
+                                <th style="text-align: center;">Add Privilege</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                        {% for row in all_users %}
+                            <tr >
+                                <td >
+                                    <button type="button" class="delete_buttons"
+                                    data-bs-toggle="modal" data-bs-target="#exampleModal" data-bs-whatever="{{ row[1] }}">{{ row[0] }}</button>
+                                </td>
+                                {% for i in range(1,2) %}
+                                    <td ><div >{{ row[i] }}</div></td>
+                                {% endfor %}
+                                <td class="td_checkbox_custom">
+                                    {% if row[2] =='1' %}
+                                        <input type="checkbox" name="add_privilege_for {{ row[0] }}" checked>
+                                    {% else %}
+                                        <input type="checkbox" name="add_privilege_for {{ row[0] }}">
+                                    {% endif %}
+                                </td>
+                            </tr>
+                        {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
+                <!-- <div> -->
+                    <button type="submit" class="btn btn-info update_button"  name="update_button" value='True'>Update Privileges</button>
+                <!-- </div> -->
+            <!-- </div> -->
+
+
+
+            
+        </form>
+    </div>
+
+    <form method="POST" action="" enctype="multipart/form-data">
+    <!-- Modal -->
+    <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header modal_header_delete">
+                    <h5 class="modal-title" id="exampleModalLabel">Are you sure you want to delete user?</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <input type="text" class="hide_textbox wider_input_login" id="recipient-name" name="delete_record_email" readonly>
+                    <button type="submit" class="btn btn-danger" id="yes_delete" name="delete_button">Delete</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</form>
+
+</div>
+        
+    <!-- If Logged in show Logout -->
+
+</section>
+
+<!--Delete modal read record id-->
+<script>
+    var exampleModal = document.getElementById('exampleModal')
+    exampleModal.addEventListener('show.bs.modal', function (event) {
+      // Button that triggered the modal
+      var button = event.relatedTarget
+      // Extract info from data-bs-* attributes
+      var recipient = button.getAttribute('data-bs-whatever')
+      // If necessary, you could initiate an AJAX request here
+      // and then do the updating in a callback.
+
+      // Update the modal's content.
+      var modalBodyInput = exampleModal.querySelector('.modal-body input')
+      modalBodyInput.value = recipient
+    
+    });
+</script>
+
+<script type="text/javascript">
+    $('#proxies').DataTable();
+</script>
+{% endblock %}

@@ -1,0 +1,514 @@
+@use 'custom';
+
+:root {
+    --wshblue: rgb(20,149,255);
+    // --tableColor: #77b3af;
+    --tableColor: var(--bs-gray-700);
+  }
+
+body{
+    font-family: 'Roboto', sans-serif;
+    // background-color: var(--bs-gray-300);
+}
+
+/*NavBar*/
+section.navbar_section {
+
+    .navbar_custom{
+        justify-content: flex-start;
+
+        .nav_left{
+            padding-left: 15px;
+            // color: red;
+            height: 85px;
+            a{
+                text-decoration: none;
+                font-weight: bold;
+                font-size: large;
+                color: var(--bs-info);
+            }
+        }
+
+        .nav_middle{
+            margin: 0 0 0 7%;
+            max-width:50%;
+            overflow-wrap: break-word;
+            h2{
+                font-size:15px;
+            }
+        }
+    
+        nav.menu-btn{display:block;}
+        nav {display: none;}
+
+        .mobile-menu{
+            position: absolute;
+            cursor: pointer;
+            right:25px;
+            top: 30px;
+            height: 20%;
+            padding-left: 30px;
+            margin-left:50px;
+        }
+
+        nav {
+            position: fixed;
+            z-index: 999;
+            width: 40%;
+            right: 0;
+            top: 0;
+            background: var(--bs-gray-500);
+            height: 100vh;
+            margin-left: 0;
+            ul {
+                list-style-type: none;
+                padding:50px 15px 0 0;
+                li{
+                    // color: var(--bs-gray-100);
+                    font-size: 2em;
+                    a{
+                        text-decoration: none;
+                        display: block;
+                        padding: .5em 10px .5em 0;
+                        
+                        text-align: right;
+                        cursor: pointer;
+                        &:hover {font-weight: bold;}
+                    }    
+                }
+            }
+            .dropdown-menu{
+                background-color: var(--bs-gray-700);
+                width: 100%;
+                .dropdown-item{
+                    color: var(--bs-gray-100);
+                }
+            }
+            .mobile-menu-exit{
+                float: right;
+                margin: .5em;
+                cursor: pointer;
+            }
+        }
+    }
+}
+
+/*Error Page*/
+section.Error {
+    padding: 50px 10px 20px 5px;
+    .error_body{
+        padding: 0 0 0 5px;
+        h3{padding: 25px 0 0 50px;}
+    }
+}
+
+/*Home*/
+section.Home {
+    padding: 50px 10px 20px 5px;
+    .form_section_login{
+        padding: 0 0 0 5px;
+        .button_group{
+            padding-left: 200px;
+        }
+    }
+    .wider_input_login{
+        width: 300px;  
+    }
+}
+
+/*UploadPage*/
+section.UploadPage {
+    padding: 50px 10px 20px 5px;
+
+    .file_row{
+        padding-bottom:5px;
+        .button_size{
+            font-size: 10px;
+            padding: 0 0 0 0;
+        }
+        .button_size:hover {
+            font-size: 12px;
+            padding: 2px;
+        }
+    }
+    .float_containter1{
+        padding-bottom:30px;
+    }
+}
+
+/*Access Page*/
+section.Access {
+    padding: 50px 10px 20px 5px;
+    .form_section_login{
+
+        padding: 0 0 0 5px;
+        .button_group{
+            padding-left: 200px;
+        }
+    }
+    .wider_input_login{
+        width: 300px;  
+    }
+}
+
+/*Edit Access Page*/
+section.EditAccess {
+    padding: 50px 10px 20px 5px;
+    .pageDiv{
+        padding: 0 0 0 5px;
+
+
+        .table_custom{
+            border-radius: .5em;
+            padding: .3em;
+            background: var(--bs-gray-500);
+            // text-align: center;
+            // vertical-align: middle;
+                //Below are bootstrap table row attritbutes for non id columns
+            table td{
+                background-color: var(--tableColor);
+            }
+            //Below are bootstrap table row attritbutes for id column ODDs
+            // table.dataTable.display tbody tr.odd>.sorting_1,table.dataTable.order-column.stripe tbody tr.odd>.sorting_1{background-color:#f1f1f1}
+            table.dataTable.display tbody tr.odd>.sorting_1,table.dataTable.order-column.stripe tbody tr.odd>.sorting_1{background-color:var(--tableColor)}
+            //Below are bootstrap table row attritbutes for id column EVENS
+            // table.dataTable.order-column tbody tr>.sorting_1,table.dataTable.order-column tbody tr>.sorting_2,table.dataTable.order-column tbody tr>.sorting_3,table.dataTable.display tbody tr>.sorting_1,table.dataTable.display tbody tr>.sorting_2,table.dataTable.display tbody tr>.sorting_3{background-color:#fafafa}
+            table.dataTable.order-column tbody tr>.sorting_1,table.dataTable.order-column tbody tr>.sorting_2,table.dataTable.order-column tbody tr>.sorting_3,table.dataTable.display tbody tr>.sorting_1,table.dataTable.display tbody tr>.sorting_2,table.dataTable.display tbody tr>.sorting_3{background-color:var(--tableColor)}
+            .delete_buttons:hover {
+                background-color: var(--bs-danger);
+            }
+        }
+
+        .update_button{
+            float: right;
+            margin: 20px 50px 0 0;
+        }
+    }
+    .wider_input_login{
+        width: 300px;  
+    }
+
+    .modal_header_delete{
+        background-color: tan;
+    }
+}
+
+.td_checkbox_custom{
+    // align-items: center;
+    // justify-items: center;
+    // background-color: red;
+    text-align: center;
+    vertical-align: middle;
+}
+
+/*ResetRequest*/
+section.ResetRequest {
+    padding: 50px 10px 20px 5px;
+    .form_section_login{
+        padding: 0 0 0 5px;
+        .button_group{
+            padding-left: 200px;
+        }
+    }
+    .wider_input_login{
+        width: 300px;  
+    }
+}
+
+
+/*File Manager*/
+section.FileManager{
+    padding: 50px 10px 20px 5px;
+    .PageDiv{
+        padding: 0 0 0 5px;
+        .FilesStagedForUpload{
+            background-color: var(--bs-primary);
+            border-radius: 1em;
+            border: 1px solid #dddddd;
+            border-color: rgb(179, 173, 173);
+            border-width: .2em;
+            padding: 15px;
+        }
+        .fileNameColor{
+            color:var(--bs-info);
+        }
+        .UploadStaging{
+            width: 100%;
+            display: flex;
+            justify-content: flex-end;
+            .ButtonDiv2{
+                gap:20px;
+            }
+        }
+        .file_row{
+            padding-bottom:5px;
+            .button_size{
+                font-size: 10px;
+                padding: 0 0 0 0;
+            }
+            .button_size:hover {
+                font-size: 12px;
+                padding: 2px;
+            }
+        }
+    }
+}
+
+/*FileManager Modal*/
+.modal-body{
+    padding:0;
+    .folder_look{
+        padding: 15px;
+        .file_item{
+            display: flex;
+            .file_text{
+                color:var(--bs-info);
+                padding: 0 0 0 5px;
+            }
+        }
+    }
+
+
+
+    .custom_footer{
+        background-color: var(--bs-gray-700);
+    }
+}
+
+.header_custom{
+    background-color: var(--bs-gray-700);
+    display: flex;
+    justify-content: space-between;
+}
+
+
+//Screen wider than 600px
+@media only screen and (min-width: 600px){
+    /*Navbar 600px*/
+    section.navbar_section {
+        .navbar_custom{
+            .mobile-menu, .mobile-menu-exit{
+                display: none;
+            }
+            nav{
+                margin-right:0;
+                display: flex;
+                justify-content: flex-end;
+                background: none;
+                height: auto;
+                
+                ul {
+                    display: flex;
+                    margin:0;
+                    padding: 1em 0 0 0;
+                    li {
+                        height:55px;
+                        border:1px solid ;
+                        margin: 0; padding: 0;
+                        border-top-left-radius: 10px;
+                        background-color: var(--bs-teal);
+                        
+                        a {
+                            // color: var(--bs-gray-100);
+                            font-size: .4em;
+                        }
+                        .dropdown-menu{
+                            // background-color: red;
+                            width:40px;
+
+                            // display: flex;
+                            .dropdown-item{
+                                // background-color: violet;
+                                width: 60%;
+                                font-size: medium;
+                                padding: 0 0 0 0;
+                                margin: 0 0 0 0;
+                            }
+                        }
+                    }
+                }
+            }
+
+        }
+    }
+    /*Home 600px*/
+    section.Home {
+        padding: 50px 10px 100px 5px;
+        .form_section_login{
+            padding: 0 0 0 50px;
+            .form-group{padding-left: 10px;}
+        }
+        .wider_input_login{
+            width: 300px;  
+        }
+    }
+    /*Error Page 600px*/
+    section.Error {
+        padding: 50px 10px 100px 5px;
+        .error_body{
+            padding: 0 0 0 50px;
+            h3{padding: 25px 0 0 50px;}
+        }
+    }
+    /*Home 600px*/
+    section.ResetRequest {
+        padding: 50px 10px 100px 5px;
+        .form_section_login{
+            padding: 0 0 0 50px;
+            .button_custom{padding:20px 0 0 75px;}
+
+        }
+        .wider_input_login{
+            width: 300px;  
+        }
+    }
+    /*UploadPage 600px*/
+    section.UploadPage {
+        padding: 50px 10px 20px 5px;
+        .UploadDiv{
+            padding: 0 0 20px 50px;
+            .UploadDivSub{
+                padding: 20px 0 0 50px;
+            }
+            .child{   
+                float: left;
+                h5{padding-top:4px}
+            }
+            .progress{
+                width: 300px;
+                margin-top:10px;
+            }
+        }
+        .FilesDiv{
+            padding: 0 0 20px 50px;
+            .FilesDivSub{
+                padding: 0 0 0 50px;
+            }
+        }
+    }
+
+    // section.FileManager {
+    //     padding: 50px 10px 100px 5px;
+    //     .UploadDiv{
+    //         padding: 0 0 0 50px;
+    //         .UploadStuff{
+    //             padding: 0 0 0 50px;
+    //         }
+    //     }
+    // }
+
+    /*FileManager 600px*/
+    section.FileManager {
+        padding: 50px 10px 20px 5px;
+        .PageDiv{
+            padding: 0 0 20px 50px;
+            .SeachLocalDiv{
+                padding: 20px 0 40px 50px;
+                .ButtonDiv{padding: 0 0 0 50px;}
+            }
+            .child{   
+                float: left;
+                h5{padding-top:4px}
+            }
+            .progress{
+                width: 300px;
+                margin-top:10px;
+            }
+        }
+        .FilesDiv{
+            padding: 0 0 20px 50px;
+            .FilesDivSub{
+                padding: 0 0 0 50px;
+            }
+        }
+    }
+
+
+    /*Access 600px*/
+    section.Access {
+        padding: 50px 10px 100px 5px;
+        .form_section_login{
+            padding: 0 0 0 50px;
+            .form-group{padding-left: 10px;}
+        }
+        .wider_input_login{
+            width: 300px;
+        }
+
+    }
+
+    /*Edit Access 600px*/
+    section.EditAccess {
+        padding: 50px 10px 100px 5px;
+        .form_section_login{
+            padding: 0 0 0 50px;
+            width: 700px;
+            .form-group{padding-left: 10px;}
+        }
+        .wider_input_login{
+            width: 300px;
+        }
+        .table_custom {
+            width: 600px;
+            margin: 20px 0 0 50px;
+        }
+    }
+
+
+
+}
+
+
+
+@media only screen and (min-width: 755px){
+    section.navbar_section {
+        .navbar_custom{
+            .nav_left{
+                margin-right:.1em;
+                img.km-logo {
+                    width: 150px;
+                }
+            }
+            .nav_middle{
+                h2 {
+                    font-size: 20px;
+                }
+            }
+            nav{
+                ul {
+                    li {
+                        height:69px;
+                        background-color: var(--bs-teal);
+                        a {
+                            padding-bottom:5px;
+                            font-size: .75em;
+                        }
+                    }
+                }
+            }
+        }
+    }
+}
+
+@media only screen and (min-width: 1000px){
+    section.navbar_section {
+        .navbar_custom{
+            .nav_middle{
+                h2 {
+                    font-size: 25px;
+                }
+            }
+            nav{
+                ul {
+                    li {
+                        height:69px;
+                        a {
+                            font-size: 1em;
+                        }
+                    }
+                }
+            }
+        }
+    }
+}
+

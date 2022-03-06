@@ -1,0 +1,94 @@
+{% extends "layout.html" %}
+{% block title %} KM File Share Home {% endblock %}
+{% block main %}
+<section class="Home">
+
+    {% if not current_user.is_authenticated %}
+        
+        <!-- If NOT logged in show -->
+        <div class="form_section_login">
+
+            <h1>Login</h1>
+
+            <form method="POST" action="">
+                {{ form.csrf_token }}
+                <div class="form-group">
+                    {{ form.email.label() }}
+                </div>
+                <div class="form-group">
+                    {% if form.email.errors %}
+                    {{ form.email(class="form-control wider_input_login") }}
+                    <div class="">
+                        {% for error in form.email.errors %}
+                        <span>{{ error }}</span>
+                        {% endfor %}
+                    </div>
+                    {% else %}
+                    {{ form.email(class="form-control wider_input_login") }}
+                    {% endif %}
+                </div>
+
+
+                <div class="form-group">
+                    {{ form.password.label() }}
+                </div>
+                <div class="form-group">
+                    {% if form.password.errors %}
+                    {{ form.password(class="form-control wider_input_login") }}
+                    <div class="invalid_feedback">
+                        {% for error in form.password.errors %}
+                        <span>{{ error }}</span>
+                        {% endfor %}
+                    </div>
+                    {% else %}
+                    {{ form.password(class="form-control wider_input_login") }}
+                    {% endif %}
+                </div>
+                <div class="form-group">
+                    {{ form.show_password(class="", id="show_password") }}
+                    {{ form.show_password.label(class="") }}
+                </div>
+
+
+                    <div class="button_group">
+                        <div class="form-submit">
+                            {{ form.submit(class="btn btn-primary") }}
+                            <a class="btn btn-info" href="{{ url_for('users.home', email_entry='guest@DashAndData.com', pass_entry='test' ) }}">Login as guest
+                                </a>
+                        </div>
+
+                        <small class="text-muted ml-2">
+                            <a href="{{ url_for('users.reset_request') }}">forgot password?</a>
+                        </small>
+
+                    </div>
+
+
+            </form>
+        </div>
+
+
+        {% else %}
+                <!-- If Logged in show Logout -->
+                <h1>you're logged in</h1>
+        {% endif %}
+
+        
+        
+
+</section>
+<script>
+    window.addEventListener("load", function(){
+        var checkbox  = document.getElementById('show_password');
+        var x = document.getElementById('{{form.password.id}}');
+        checkbox.addEventListener('change', function() {
+            if(this.checked) {
+                x.type = 'text'; 
+            } else {
+                x.type = 'password'; 
+            }
+        });
+    });
+</script>
+
+{% endblock %}

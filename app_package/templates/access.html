@@ -1,0 +1,52 @@
+{% extends "layout.html" %}
+{% block title %} Register {% endblock %}
+{% block main %}
+<section class="Access">
+
+        <div class="form_section_login">
+
+            <h1>Add User</h1>
+
+            <form method="POST" action="">
+                {{ form.hidden_tag() }}
+                <div class="form-group">
+                    {{ form.email.label() }}
+                </div>
+                <div class="form-group">
+                    {% if form.email.errors %}
+                    {{ form.email(class="form-control wider_input_login") }}
+                    <div class="">
+                        {% for error in form.email.errors %}
+                        <span class="text-warning">{{ error }}</span>
+                        {% endfor %}
+                    </div>
+                    {% else %}
+                    {{ form.email(class="form-control wider_input_login") }}
+                    {% endif %}
+                </div>
+
+                <div class="form-group">
+                    {{ form.add_privilege(class="") }}
+                    {{ form.add_privilege.label(class="") }}
+                </div>
+
+                    <br/>
+                    <div class="button_group">
+                        <div class="">
+                            {{ form.submit(class="btn btn-primary") }}
+                        </div>
+
+
+                    </div>
+            </form>
+        </div>
+
+    <hr/>
+
+</div>
+
+
+</section>
+
+
+{% endblock %}

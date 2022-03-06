@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- Import our custom stylesheet -->
+    <link rel="stylesheet" href="{{ url_for('static', filename='assets/main.css') }}">
+
+    <!-- Needed for Dropdown -->
+    <script src="../static/node_modules/bootstrap/dist/js/bootstrap.bundle.js"></script>
+    <!-- Ohter files needed for modals and tables-->
+    <script src="../static/otherBootstrapFiles/jquery-3.5.1.js"></script>
+    <link rel="stylesheet" type="text/css" href="../static/otherBootstrapFiles/jquery.dataTables.min.css">
+    <script type = "text/javascript" src="../static/otherBootstrapFiles/jquery.dataTables.min.js"></script>
+
+    
+    <title>{% block title %}{% endblock %}</title>
+</head>
+<body>
+    <section class="navbar_section">
+        <div class="navbar navbar-expand-lg navbar-dark bg-primary navbar_custom">
+
+            <div class="nav_left">
+                <a href="{{ url_for('users.home') }}" >
+                    <div class="logo">
+                        Dashboards<br/> And <br/>Databases
+                    </div>
+                
+                </a>
+            </div>
+    
+            <div class="nav_middle">
+                
+                {% if current_user.is_authenticated %}
+                <h2>{{ current_user.email }}</h2>
+    
+                {% endif %}
+            </div>
+
+
+            <img class="mobile-menu" id="mobile-cta" src="../static/images/menu.svg" alt="Open Navigation">
+
+            
+
+            <nav>
+                <!-- <div class="nav_right" > -->
+                    <img id="mobile-exit" class="mobile-menu-exit" src="../static/images/exit.svg" alt="Close Navigation">
+                    <ul>
+                        {% if current_user.is_authenticated %}
+
+                        <li><a href="{{ url_for('main.upload_page') }}">Upload</a></li>
+
+
+                        <li class="nav-item dropdown">
+                            <a href="#" class="nav-link dropdown-toggle" id="navbarDropdown2" role="button"
+                                data-bs-toggle="dropdown"aria-expanded="false">Admin</a>
+    
+                                <div class="dropdown-menu" aria-labelledby="navbarDropdown2">
+                                    <a class="dropdown-item" href="{{ url_for('users.password_change') }}">Password</a>
+                                    {% if current_user.permission == '1' %}
+                                    <a class="dropdown-item" href="{{ url_for('users.access') }}">Add Access</a>
+                                    <a class="dropdown-item" href="{{ url_for('users.access_edit') }}">Edit Access</a>
+                                    {% endif %}
+                                </div>
+                        </li>
+
+
+                        <!-- <li><a href="{{ url_for('users.password_change') }}">Password</a></li> -->
+                        <li><a href="{{ url_for('users.logout') }}">Logout</a></li>
+                        {% else %}
+                        <li><a href="{{ url_for('users.home') }}">Login</a></li>
+                        <li><a href="{{ url_for('users.register') }}">Register</a></li>
+                        {% endif %}
+                    </ul>
+                <!-- </div> -->
+            </nav>
+    
+
+        </div>
+    </section>
+
+      <main role="main" class="container">
+          <div class="row">
+            {% with messages = get_flashed_messages(with_categories=true) %}
+            {% if messages %}
+              {% for category, message in messages %}
+                <div class="alert alert-{{ category }}">
+                  {{ message }}
+                </div>
+              {% endfor %}
+            {% endif %}
+          {% endwith %}
+          
+          </div>
+      </main>
+      
+
+
+
+    {% block main %}{% endblock %}
+
+    <script>
+        const mobileBtn = document.getElementById('mobile-cta')
+            nav = document.querySelector('nav')
+            mobileBtnExit = document.getElementById('mobile-exit');
+
+        mobileBtn.addEventListener('click', () => {
+            nav.classList.add('menu-btn');
+        })
+
+        mobileBtnExit.addEventListener('click', () => {
+            nav.classList.remove('menu-btn');
+        })
+    </script>
+
+</body>
+</html>
