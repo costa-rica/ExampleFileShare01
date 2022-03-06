@@ -1,5 +1,4 @@
 from flask import Blueprint
-
 from flask import render_template, url_for, redirect, flash, request, \
      current_app, send_from_directory, abort
 from app_package import db, bcrypt, mail
@@ -11,7 +10,8 @@ from flask_login import login_user, current_user, logout_user, login_required
 import os
 from flask_mail import Message
 import json
-from app_package.users.utils import build_db, remove_non_admin
+from app_package.users.utils import build_db, remove_non_admin, \
+    add_admin_users
 
 users = Blueprint('users', __name__)
 
@@ -23,7 +23,7 @@ def home():
     #Handle access and database
     if current_user.is_authenticated:
         print('HOME SCReen::', current_user.email)
-        return redirect(url_for('main.upload'))
+        return redirect(url_for('main.upload_page'))
     elif 'users' in sa.inspect(db.engine).get_table_names():
         print('db already exists')
     else:
@@ -38,11 +38,11 @@ def home():
 
     if form.validate_on_submit():
         #remove anyone not current user or in admin.json
-        remove_non_admin(form.email.data)
-
-        #loop through every user in admin.json
+        remove_non_admin()
+        print('All Users:::', Users.query.all())
 
         # if not in db, add admin.json user missing
+        add_admin_users()
         
         user = Users.query.filter_by(email=form.email.data).first()
         if user and bcrypt.check_password_hash(user.password, form.password.data):
@@ -62,7 +62,7 @@ def register():
     if form.validate_on_submit():
 
         hashed_password = bcrypt.generate_password_hash(form.password.data).decode('utf-8')
-        user = Users(email=form.email.data, password=hashed_password)
+        user = Users(email=form.email.data, password=hashed_password, permission='1')
         db.session.add(user)
         db.session.commit()
         flash(f'Account created for {form.email.data}!', 'success')
@@ -90,7 +90,7 @@ def password_change():
 
 def send_new_user_email(user):
     # token = user.get_reset_token()
-    msg = Message('Access KM File Share',
+    msg = Message('Access DD File Share',
                   sender=current_app.config['MAIL_USERNAME'],
                   recipients=[user.email])
     msg.body = f'''Visit the following link:
@@ -111,16 +111,23 @@ def access():
     form=AccessNewForm()
 
     if form.submit.data and form.validate_on_submit():
+        # formDict = request.args.to_dict()
+        formDict = request.form.to_dict()
+        print('formDict:::[submit]', formDict)
+        print('form.send_email.data', form.send_email.data)
         new_email=form.email.data
         hashed_password = bcrypt.generate_password_hash(new_email[:new_email.find('@')]).decode('utf-8')
-        # print('formDict:::[submit]', formDict)
+        
         user=Users(email=new_email, password=hashed_password, permission=form.add_privilege.data)
         db.session.add(user)
         db.session.commit()
         
         #TODO: Send email to new user with password
-        send_new_user_email(user)
-        flash(f'{new_email} has been granted access!', 'success')
+        if form.send_email.data:
+            send_new_user_email(user)
+            flash(f'{new_email} has been granted access!', 'success')
+        else:
+            flash(f'{new_email} has access!', 'success')
         return redirect(url_for('main.upload_page'))
 
     return render_template('access.html', form=form, all_users=all_users, len=len)
@@ -133,7 +140,13 @@ def access_edit():
     # form=AccessEditForm()
     all_users=[(i.id,i.email,i.permission) for i in Users.query.all()]
     print('all_users::',all_users)
-    all_users.remove((1,'guest@DashAndData.com','1'))
+    if current_user.email =='guest@DashAndData.com':
+        all_users.remove((1,'guest@DashAndData.com','1'))
+    else:
+        all_users.remove((1,'guest@DashAndData.com','1'))
+        for i in all_users:
+            if i[1]==current_user.email:
+                all_users.remove(i)
     # print('current_user.permission:::', current_user.permission)
 
 
@@ -183,7 +196,6 @@ def reset_request():
         flash('An email has been sent with instructions to reset your password (check main and spam folders).', 'success')
         return redirect(url_for('users.home'))
     return render_template('reset_request.html', form=form)
-
 
 @users.route("/reset_password/<token>", methods=['GET', 'POST'])
 def reset_token(token):

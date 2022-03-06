@@ -187,9 +187,19 @@ section.EditAccess {
     .wider_input_login{
         width: 300px;  
     }
-
+    .modal{
+        margin-top: 30%;
+    }
     .modal_header_delete{
-        background-color: tan;
+        background-color: var(--bs-warning);
+        color: black;
+    }
+    .modal-body{padding: 15px 0 10px 15%;
+        button{
+            float:right;
+            margin-right: 30%;
+            margin-top: 10px;
+        }
     }
 }
 

@@ -34,6 +34,7 @@ class ResetPasswordForm(FlaskForm):
 class AccessNewForm(FlaskForm):
     email = StringField('Email', validators=[DataRequired(),Email()])
     add_privilege = BooleanField('Give Add Privilege')
+    send_email = BooleanField('Send Email to New User')
     submit = SubmitField('Add Permission')
 
 class AccessEditForm(FlaskForm):

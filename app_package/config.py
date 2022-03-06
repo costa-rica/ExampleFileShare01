@@ -21,6 +21,7 @@ class ConfigDev:
     UPLOAD_DIR = os.path.join(os.path.dirname(__file__), 'static','upload')
     TEST_DIR = os.path.join(os.path.dirname(__file__), 'static','test_files')
     ADMIN_CREDENTIALS =config.get('ADMIN_CREDENTIALS')
+    ADMIN_CREDENTIALS_2 =config.get('ADMIN_CREDENTIALS_2')
 
 class ConfigProd:
     DEBUG = False
@@ -35,4 +36,5 @@ class ConfigProd:
     UPLOAD_DIR = os.path.join(os.path.dirname(__file__), 'static','upload')
     TEST_DIR = os.path.join(os.path.dirname(__file__), 'static','test_files')
     ADMIN_CREDENTIALS =config.get('ADMIN_CREDENTIALS')
+    ADMIN_CREDENTIALS_2 =config.get('ADMIN_CREDENTIALS_2')
     

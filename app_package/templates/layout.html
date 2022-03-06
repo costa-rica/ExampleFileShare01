@@ -44,36 +44,28 @@
             
 
             <nav>
-                <!-- <div class="nav_right" > -->
                     <img id="mobile-exit" class="mobile-menu-exit" src="../static/images/exit.svg" alt="Close Navigation">
                     <ul>
                         {% if current_user.is_authenticated %}
-
                         <li><a href="{{ url_for('main.upload_page') }}">Upload</a></li>
-
-
                         <li class="nav-item dropdown">
-                            <a href="#" class="nav-link dropdown-toggle" id="navbarDropdown2" role="button"
+                            <a href="#" class="dropdown-toggle" id="navbarDropdown2" role="button"
                                 data-bs-toggle="dropdown"aria-expanded="false">Admin</a>
     
-                                <div class="dropdown-menu" aria-labelledby="navbarDropdown2">
-                                    <a class="dropdown-item" href="{{ url_for('users.password_change') }}">Password</a>
-                                    {% if current_user.permission == '1' %}
-                                    <a class="dropdown-item" href="{{ url_for('users.access') }}">Add Access</a>
-                                    <a class="dropdown-item" href="{{ url_for('users.access_edit') }}">Edit Access</a>
-                                    {% endif %}
-                                </div>
+                            <div class="dropdown-menu" aria-labelledby="navbarDropdown2">
+                                <a class="dropdown-item" href="{{ url_for('users.password_change') }}">Password</a>
+                                {% if current_user.permission == '1' %}
+                                <a class="dropdown-item" href="{{ url_for('users.access') }}">Add Access</a>
+                                <a class="dropdown-item" href="{{ url_for('users.access_edit') }}">Edit Access</a>
+                                {% endif %}
+                            </div>
                         </li>
-
-
-                        <!-- <li><a href="{{ url_for('users.password_change') }}">Password</a></li> -->
                         <li><a href="{{ url_for('users.logout') }}">Logout</a></li>
                         {% else %}
                         <li><a href="{{ url_for('users.home') }}">Login</a></li>
                         <li><a href="{{ url_for('users.register') }}">Register</a></li>
                         {% endif %}
                     </ul>
-                <!-- </div> -->
             </nav>
     
 

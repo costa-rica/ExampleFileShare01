@@ -1,5 +1,5 @@
 {% extends "layout.html" %}
-{% block title %} Register {% endblock %}
+{% block title %} Add User {% endblock %}
 {% block main %}
 <section class="Access">
 
@@ -26,10 +26,13 @@
                 </div>
 
                 <div class="form-group">
-                    {{ form.add_privilege(class="") }}
+                    {{ form.add_privilege(checked=True, class="" ) }}
                     {{ form.add_privilege.label(class="") }}
                 </div>
-
+                <div class="form-group">
+                    {{ form.send_email(checked=True, class="" ) }}
+                    {{ form.send_email.label(class="") }}
+                </div>
                     <br/>
                     <div class="button_group">
                         <div class="">
