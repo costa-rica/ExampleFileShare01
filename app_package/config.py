@@ -5,7 +5,7 @@ if os.environ.get('COMPUTERNAME')=='CAPTAIN2020':
     with open(r"C:\Users\captian2020\Documents\config_files\config_ddFileShare01.json") as config_file:
         config = json.load(config_file)
 else:
-    with open('/home/ubuntu/config_ddFileShare01.json') as config_file:
+    with open('/home/ubuntu/applications/config_ddFileShare01.json') as config_file:
         config = json.load(config_file)
 
 class ConfigDev:

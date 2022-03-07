@@ -84,8 +84,17 @@ def upload_page():
     # uploaded_files_info_lists=zip(upload_data_file_list,size_list)
 
     #"Local" files - servers side files that are built to look like local client machine
+    isExist = os.path.exists(current_app.config['TEST_DIR'])
+    if not isExist:
+        os.makedirs(current_app.config['TEST_DIR'])
+        for i in range(0,2):
+            with open(os.path.join(current_app.config['TEST_DIR'],f'test_0{i}.txt'), 'w') as newfile:
+                newfile.write(f'Test file {i}')
+                newfile.close
+
+
     local_dir_files=os.listdir(current_app.config['TEST_DIR'])
-    local_dir_files.remove('sub_directory')
+    # local_dir_files.remove('sub_directory')
     local_files_info_dict={i:[os.path.join(current_app.config['TEST_DIR'],i),False] for i in local_dir_files}
     print('local_dir_files::',local_dir_files)
 
