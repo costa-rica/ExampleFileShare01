@@ -80,10 +80,14 @@ def logout():
 def password_change():
     form = ResetPasswordForm()
     if form.validate_on_submit():
-        hashed_password = bcrypt.generate_password_hash(form.password.data).decode('utf-8')
-        current_user.password = hashed_password
-        db.session.commit()
-        flash('Your password has been updated!', 'success')
+        formDict = request.form.to_dict()
+        if formDict.get('no_change') != 'guest_email':
+            hashed_password = bcrypt.generate_password_hash(form.password.data).decode('utf-8')
+            current_user.password = hashed_password
+            db.session.commit()
+            flash('Your password has been updated!', 'success')
+        else:
+            flash('This user cannot change passwords.', 'warning')
     return render_template('password.html', form=form)
 
 
@@ -113,8 +117,6 @@ def access():
     if form.submit.data and form.validate_on_submit():
         # formDict = request.args.to_dict()
         formDict = request.form.to_dict()
-        print('formDict:::[submit]', formDict)
-        print('form.send_email.data', form.send_email.data)
         new_email=form.email.data
         hashed_password = bcrypt.generate_password_hash(new_email[:new_email.find('@')]).decode('utf-8')
         
@@ -137,7 +139,6 @@ def access():
 @users.route("/edit_access", methods=["GET","POST"])
 @login_required
 def access_edit():
-    # form=AccessEditForm()
     all_users=[(i.id,i.email,i.permission) for i in Users.query.all()]
     print('all_users::',all_users)
     if current_user.email =='guest@DashAndData.com':
@@ -147,8 +148,6 @@ def access_edit():
         for i in all_users:
             if i[1]==current_user.email:
                 all_users.remove(i)
-    # print('current_user.permission:::', current_user.permission)
-
 
 
     if request.method == 'POST':
