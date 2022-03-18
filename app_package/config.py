@@ -13,7 +13,7 @@ class ConfigDev:
     SECRET_KEY = config.get('SECRET_KEY_UPLOADER')
     SQLALCHEMY_DATABASE_URI = config.get('SQL_URI_DDFILESHARE01')
     MAIL_SERVER = config.get('MAIL_SERVER_MSOFFICE')
-    MAIL_PORT = config.get('MAIL_PORT_GD')
+    MAIL_PORT = config.get('MAIL_PORT')
     MAIL_USE_TLS = True
     MAIL_PASSWORD = config.get('MAIL_PASSWORD_DD')
     MAIL_USERNAME = config.get('MAIL_EMAIL_DD')
@@ -28,7 +28,7 @@ class ConfigProd:
     SECRET_KEY = config.get('SECRET_KEY_UPLOADER')
     SQLALCHEMY_DATABASE_URI = config.get('SQL_URI_DDFILESHARE01')
     MAIL_SERVER = config.get('MAIL_SERVER_MSOFFICE')
-    MAIL_PORT = config.get('MAIL_PORT_DD')
+    MAIL_PORT = config.get('MAIL_PORT')
     MAIL_USE_TLS = True
     MAIL_PASSWORD = config.get('MAIL_PASSWORD_DD')
     MAIL_USERNAME = config.get('MAIL_EMAIL_DD')
