@@ -11441,6 +11441,10 @@ section.navbar_section .navbar_custom .nav_left a {
   font-size: large;
   color: var(--bs-info);
 }
+section.navbar_section .navbar_custom .nav_left .dandd_logo {
+  padding-left: 20px;
+  height: 80px;
+}
 section.navbar_section .navbar_custom .nav_middle {
   margin: 0 0 0 7%;
   max-width: 50%;
