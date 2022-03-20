@@ -22,7 +22,7 @@
         <div class="navbar navbar-expand-lg navbar-dark bg-primary navbar_custom">
 
             <div class="nav_left">
-                <a href="{{ url_for('users.home') }}" >
+                <a href="https://dashanddata.com" >
                     <div class="logo">
                         Dashboards<br/> And <br/>Databases
                     </div>
@@ -33,7 +33,10 @@
             <div class="nav_middle">
                 
                 {% if current_user.is_authenticated %}
-                <h2>{{ current_user.email }}</h2>
+                    {% if current_user.email.rfind('@') %}
+                        <h2 class="small_screen">{{ current_user.email[:current_user.email.rfind('@') ] }}</h2>
+                        <h2 class="big_screen">{{ current_user.email }}</h2>
+                    {% endif %}
     
                 {% endif %}
             </div>
@@ -65,7 +68,7 @@
                         <li><a href="{{ url_for('users.home') }}">Login</a></li>
                         <li><a href="{{ url_for('users.register') }}">Register</a></li>
                         {% endif %}
-                        <li><a href="https://dashanddata.com/blog/blog01">Documentation</a></li>
+                        <li><a href="https://dashanddata.com/blog/blog01">Docs</a></li>
                     </ul>
             </nav>
     
